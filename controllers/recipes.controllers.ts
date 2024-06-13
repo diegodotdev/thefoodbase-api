@@ -46,7 +46,12 @@ export const createRecipe = async (req: Request, res: Response) => {
   const body = req.body;
 
   try {
-    res.send(body).status(200);
+    const data = await prisma.recipe.create({
+      data: {
+        ...body,
+      },
+    });
+    res.send(data).status(200);
   } catch (error) {
     res.send(error).status(500);
   }
